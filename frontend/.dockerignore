@@ -1,0 +1,34 @@
+# --- 依赖库 (必须忽略) ---
+# 本地 Windows 编译的 node_modules 绝不能进容器
+node_modules/
+
+# --- 打包产物 (必须忽略) ---
+# 避免本地的 dist 干扰 Docker 内部的干净构建
+dist/
+build/
+
+# --- 环境变量 (根据方案选择) ---
+# 忽略本地开发用的私密配置
+.env.local
+.env.development.local
+.env.test.local
+
+# ⚠️ 注意：如果你选择在 Docker 构建时读取文件，
+# 请确保下面这行没有被写成 .env*
+# 我们需要保留 .env.production 参与构建
+
+# --- 源代码管理 ---
+.git
+.gitignore
+
+# --- 日志与调试 ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# --- 系统与编辑器 ---
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
