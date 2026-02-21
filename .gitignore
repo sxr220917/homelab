@@ -1,24 +1,33 @@
-# --- 系统相关 ---
+# --- 系统相关 (System) ---
 Thumbs.db
 .DS_Store
+*.tmp
 
-# --- 开发工具相关 ---
+# --- 开发工具相关 (IDE) ---
 .vscode/
+# 如果你希望共享 VS Code 插件推荐，可以只忽略 launch.json
+# .vscode/launch.json
 *.swp
 *.log
 
-# --- 后端 (Python) 相关 ---
-backend/.venv/
-backend/__pycache__/
-backend/*.pyc
+# --- 后端 (Python/FastAPI) ---
+# 忽略虚拟环境
+**/venv/
+**/.venv/
+# 忽略 Python 缓存文件（使用通配符更省事）
+**/__pycache__/
+**/*.py[cod]
+# 忽略本地环境变量文件（保护隐私）
 backend/.env
-backend/app/api/__pycache__/
+backend/.env.local
 
-# --- 前端 (Node/React) 相关 ---
+# --- 前端 (Node/React/Vite) ---
 frontend/node_modules/
-frontend/build/
-frontend/.env.local
-frontend/.env.development.local
+# Vite 默认的打包输出目录是 dist，不是 build
+frontend/dist/
+# 忽略本地覆盖的环境变量
+frontend/.env*.local
 
-# --- Docker 相关 ---
-.dockerignore
+
+# --- 其他 (Others) ---
+.config/
