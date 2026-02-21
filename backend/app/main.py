@@ -1,33 +1,24 @@
 from fastapi import FastAPI
-from typing import Dict
+from fastapi.middleware.cors import CORSMiddleware
 
-# 1. 初始化应用
-app = FastAPI(
-    title="HomeLab App-Core API",
-    description="这是运行在 LXC 101 上的后端服务",
-    version="0.1.0"
+app = FastAPI()
+
+# 只允许你信任的来源访问
+origins = [
+    "http://localhost:5173",
+    "http://api.homelab.local",
+    "https://www.pourquoi.cc", 
+    "https://api.pourquoi.cc",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,     # 精确匹配，拒绝其他所有来源
+    allow_credentials=True,    # 如果你的前端需要发送 Cookie 或认证信息，必须为 True
+    allow_methods=["GET", "POST", "OPTIONS"], # 甚至可以只允许特定的 HTTP 方法
+    allow_headers=["*"],       # 允许前端发送任何 Header（如 Content-Type）
 )
 
-# 2. 根路径接口 (用于基础验证)
-@app.get("/")
-def read_root() -> Dict:
-    return {
-        "status": "active",
-        "message": "Welcome to App-Core API",
-        "node": "LXC-101"
-    }
-
-# 3. 健康检查接口 (将来 NPM 网关会频繁访问这里确认服务是否挂掉)
 @app.get("/health")
-def health_check() -> Dict:
-    return {"status": "ok", "uptime": "stable"}
-
-# 4. 业务示例接口
-@app.get("/api/v1/info")
-def get_info() -> Dict:
-    return {
-        "project": "My-HomeLab",
-        "author": "Sxr",
-        "location": "Japan",
-        "stack": ["FastAPI", "Docker", "PVE"]
-    }
+def health():
+    return {"status": "ok", "security": "strict"}
