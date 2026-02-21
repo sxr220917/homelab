@@ -1,0 +1,24 @@
+# --- 系统相关 ---
+Thumbs.db
+.DS_Store
+
+# --- 开发工具相关 ---
+.vscode/
+*.swp
+*.log
+
+# --- 后端 (Python) 相关 ---
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/app/api/__pycache__/
+
+# --- 前端 (Node/React) 相关 ---
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+
+# --- Docker 相关 ---
+.dockerignore
