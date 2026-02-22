@@ -5,6 +5,8 @@
 *.local
 # 【关键契约】特赦环境变量模板，允许它进入 Git
 !.env.example
+# 前端构建配置不含 secret（仅有公开 API URL），允许进入 Git
+!frontend/.env.*
 
 # --- 2. 数据库与持久化数据 (Persistent Data) ---
 # 绝对禁止任何真实业务数据、上传文件或数据库二进制文件进入 Git

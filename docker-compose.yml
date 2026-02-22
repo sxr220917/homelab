@@ -1,12 +1,20 @@
 services:
   backend:
     image: ghcr.io/sxr220917/homelab-backend:latest
-    container_name: homelab-backend
     restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
 
   frontend:
     image: ghcr.io/sxr220917/homelab-frontend:latest
-    container_name: homelab-frontend
     restart: always
     ports:
-      - "3000:80" 
+      - "80:80"
+
+  db:
+    image: postgres:16-alpine
+    restart: always
+    env_file: .env
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
