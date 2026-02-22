@@ -1,0 +1,31 @@
+name: Build Frontend
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'   # 仅当修改前端文件夹时触发
+  workflow_dispatch:      # 依然保留手动按钮
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend  # 关键：告诉 Docker 去哪个文件夹找代码
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/homelab-frontend:latest
+          cache-from: type=gha # 开启缓存，加速下一次构建
+          cache-to: type=gha,mode=max
