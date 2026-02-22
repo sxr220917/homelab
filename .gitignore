@@ -1,33 +1,44 @@
-# --- 系统相关 (System) ---
-Thumbs.db
+# --- 1. 环境变量与机密 (Secrets & Env) ---
+# 忽略项目内任何位置的 .env 文件及其变体
+.env
+.env.*
+*.local
+# 【关键契约】特赦环境变量模板，允许它进入 Git
+!.env.example
+
+# --- 2. 数据库与持久化数据 (Persistent Data) ---
+# 绝对禁止任何真实业务数据、上传文件或数据库二进制文件进入 Git
+.data/
+.dev_db_data/
+postgres_data/
+
+# --- 3. 系统与日志 (System & Logs) ---
 .DS_Store
+Thumbs.db
 *.tmp
-
-# --- 开发工具相关 (IDE) ---
-.vscode/
-# 如果你希望共享 VS Code 插件推荐，可以只忽略 launch.json
-# .vscode/launch.json
-*.swp
 *.log
+*.swp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# --- 后端 (Python/FastAPI) ---
-# 忽略虚拟环境
-**/venv/
-**/.venv/
-# 忽略 Python 缓存文件（使用通配符更省事）
+# --- 4. 开发工具 (IDEs & Editors) ---
+.idea/
+.vscode/*
+# 仅共享工作区设置和推荐插件（可选，若不需要可删除这两行）
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# --- 5. 后端 (Python/FastAPI) ---
 **/__pycache__/
 **/*.py[cod]
-# 忽略本地环境变量文件（保护隐私）
-backend/.env
-backend/.env.local
+**/*$py.class
+**/venv/
+**/.venv/
+.pytest_cache/
 
-# --- 前端 (Node/React/Vite) ---
-frontend/node_modules/
-# Vite 默认的打包输出目录是 dist，不是 build
+# --- 6. 前端 (Node/React/Vite) ---
+**/node_modules/
 frontend/dist/
-# 忽略本地覆盖的环境变量
-frontend/.env*.local
-
-
-# --- 其他 (Others) ---
-.config/
+frontend/dist-ssr/
+frontend/.eslintcache

@@ -1,0 +1,12 @@
+services:
+  backend:
+    image: ghcr.io/sxr220917/homelab-backend:latest
+    container_name: homelab-backend
+    restart: always
+
+  frontend:
+    image: ghcr.io/sxr220917/homelab-frontend:latest
+    container_name: homelab-frontend
+    restart: always
+    ports:
+      - "3000:80" 
