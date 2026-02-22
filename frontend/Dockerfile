@@ -18,6 +18,9 @@ RUN npm run build
 # 使用轻量的 Nginx 镜像托管静态资源
 FROM nginx:stable-alpine
 
+# 复制自定义的 Nginx 配置文件，覆盖默认配置
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # 从构建阶段复制生成的静态文件到 Nginx 的网页目录
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 

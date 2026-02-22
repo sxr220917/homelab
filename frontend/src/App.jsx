@@ -6,8 +6,7 @@ import './App.css'
  * 1. BASE_URL 会根据 .env.development 或 .env.production 自动切换
  * 2. 如果环境变量未定义，则默认指向 localhost 以防报错
  */
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const API_URL = `${BASE_URL}/health`;
+const API_URL = `/api/health`;
 
 function App() {
   const [data, setData] = useState(null);
