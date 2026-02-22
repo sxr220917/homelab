@@ -1,0 +1,24 @@
+name: Build Backend
+on:
+  push:
+    branches: [main]
+    paths: ['backend/**']
+  workflow_dispatch: # 增加手动按钮，方便调试
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write # 必须有，否则推不进 GHCR
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/homelab-backend:latest
