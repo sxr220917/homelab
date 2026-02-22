@@ -6,7 +6,8 @@ import './App.css'
  * 1. BASE_URL 会根据 .env.development 或 .env.production 自动切换
  * 2. 如果环境变量未定义，则默认指向 localhost 以防报错
  */
-const API_URL = `/api/health`;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_URL = `${BASE_URL}/health`;
 
 function App() {
   const [data, setData] = useState(null);
@@ -83,7 +84,7 @@ function App() {
       <footer className="footer">
         <p>当前运行模式: <strong>{import.meta.env.MODE}</strong></p>
         <p>访问域名: <code>{window.location.hostname}</code></p>
-        <p>API Endpoint: <code>{BASE_URL}</code></p>
+        <p>API Endpoint: <code>{API_URL}</code></p>
       </footer>
     </div>
   )
